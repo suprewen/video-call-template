@@ -16,4 +16,30 @@ h1 { font-family: Georgia, "Songti SC", serif; font-size: clamp(42px, 6vw, 70px)
 .render-box { margin-top: 20px; padding: 15px; color: #435046; background: #edf3ee; border-radius: 13px; }.render-box svg { color: #348752; }.render-box p { margin: 8px 0 7px; font-size: 13px; line-height: 1.45; }.progress { height: 7px; background: #d5e3d8; border-radius: 100px; overflow: hidden; margin-top: 10px; }.progress span { display: block; height: 100%; background: #348752; border-radius: inherit; transition: width .25s ease; }.error { color: #bb3131; display: block; margin-top: 9px; line-height: 1.45; }
 .export-button { width: 100%; margin-top: 18px; border: 0; border-radius: 12px; min-height: 48px; background: #277446; color: #fff; font: inherit; font-size: 15px; font-weight: 750; display: flex; align-items: center; justify-content: center; gap: 9px; cursor: pointer; transition: background .18s, transform .18s; }.export-button:hover:not(:disabled) { background: #1d6138; transform: translateY(-1px); }.export-button:disabled { background: #b8c7bc; cursor: not-allowed; }.privacy { color: #718078; font-size: 11px; line-height: 1.5; margin: 11px 2px 0; }.spin { animation: spin .9s linear infinite; } @keyframes spin { to { transform: rotate(360deg); } }
 .docs-link { margin-top: 19px; display: flex; align-items: center; gap: 8px; color: #2d7547; text-decoration: none; font-weight: 700; font-size: 14px; }.docs-link:hover { text-decoration: underline; }
-@media (max-width: 760px) { main { padding: 47px 18px; }.workspace { grid-template-columns: 1fr; }.preview-wrap { max-height: none; } }
+@media (max-width: 760px) {
+  main { padding: 32px 16px calc(30px + env(safe-area-inset-bottom)); }
+  .intro { margin-bottom: 27px; }
+  h1 { font-size: clamp(38px, 12vw, 52px); letter-spacing: -.065em; line-height: 1; }
+  .lede { margin-top: 15px; font-size: 16px; line-height: 1.58; }
+  .intro, .workspace, .panel { min-width: 0; }
+  .workspace { grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: start; }
+  h1, .lede { overflow-wrap: anywhere; word-break: break-all; }
+  .preview-wrap { width: min(100%, 390px); max-width: 100%; min-width: 0; border-radius: 22px; }
+  .panel { order: -1; padding: 20px 16px; border-radius: 20px; }
+  .panel-head { margin-bottom: 16px; }
+  .upload { min-height: 76px; padding: 14px; }
+  .upload small { max-width: min(68vw, 280px); }
+  .advanced-options summary { min-height: 52px; }
+  .option-fields { padding: 16px 14px; gap: 18px; }
+  .option-fields input { min-height: 28px; }
+  .reset-options { min-height: 32px; font-size: 13px; }
+  .render-box { margin-top: 16px; padding: 14px; }
+  .export-button { position: sticky; bottom: max(10px, env(safe-area-inset-bottom)); z-index: 2; min-height: 54px; margin-top: 16px; box-shadow: 0 9px 20px rgba(27, 78, 46, .22); }
+  .privacy { margin-top: 12px; font-size: 12px; }
+}
+@media (max-width: 380px) {
+  main { padding-inline: 13px; }
+  h1 { font-size: 37px; }
+  .panel { padding: 18px 14px; }
+  .upload small { max-width: 205px; }
+}
