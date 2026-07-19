@@ -4,7 +4,6 @@ import {WechatOrderCall, type WechatOrderCallProps} from './WechatOrderCall';
 const defaultProps: WechatOrderCallProps = {
   videoSrc: '/render-input.mp4',
   callerName: '正在视频通话',
-  statusText: '正在为你介绍菜单',
   greenSlot: true,
 };
 

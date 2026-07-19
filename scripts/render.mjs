@@ -30,6 +30,6 @@ if (probe.status !== 0) {
   process.exit(1);
 }
 const frames = Math.max(1, Math.ceil(Number(probe.stdout.trim()) * 30));
-const props = JSON.stringify({videoSrc: '/render-input.mp4', callerName, statusText: '正在为你介绍菜单', greenSlot: true});
+const props = JSON.stringify({videoSrc: '/render-input.mp4', callerName, greenSlot: true});
 const result = spawnSync('npx', ['remotion', 'render', 'src/remotion.ts', 'WechatOrderCall', output, `--frames=0-${frames - 1}`, '--codec=h264', `--props=${props}`], {stdio: 'inherit'});
 process.exit(result.status ?? 1);

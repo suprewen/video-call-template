@@ -6,7 +6,7 @@ let loaded = false;
 
 const CORE_VERSION = '0.12.10';
 
-const createOverlay = async (callerName: string, statusText: string): Promise<Uint8Array> => {
+const createOverlay = async (callerName: string): Promise<Uint8Array> => {
   const canvas = document.createElement('canvas');
   canvas.width = 720;
   canvas.height = 1280;
@@ -35,11 +35,6 @@ const createOverlay = async (callerName: string, statusText: string): Promise<Ui
   // 直播软件通过色度键移除这块纯绿区域。
   ctx.fillStyle = '#00FF00';
   ctx.fillRect(486, 90, 208, 330);
-
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#fff';
-  ctx.font = '600 25px Arial, PingFang SC, sans-serif';
-  ctx.fillText(statusText, 360, 1058);
 
   const controls = [
     {x: 164, label: '静音', icon: '♩', color: 'rgba(34,34,34,.72)'},
@@ -89,7 +84,7 @@ export const exportOrderVideo = async ({
   onStatus('正在准备素材…');
   onProgress(0);
   await ffmpeg.writeFile('input-video', await fetchFile(file));
-  await ffmpeg.writeFile('call-overlay.png', await createOverlay(callerName, '正在为你介绍菜单'));
+  await ffmpeg.writeFile('call-overlay.png', await createOverlay(callerName));
 
   const progressHandler = ({progress}: {progress: number}) => onProgress(Math.min(99, Math.max(1, Math.round(progress * 100))));
   ffmpeg.on('progress', progressHandler);

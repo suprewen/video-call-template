@@ -4,7 +4,6 @@ import {Mic, MoreHorizontal, PhoneOff, SwitchCamera, Video as VideoIcon, Volume2
 export type WechatOrderCallProps = {
   videoSrc: string;
   callerName: string;
-  statusText: string;
   greenSlot: boolean;
 };
 
@@ -20,7 +19,6 @@ const controlStyle = {
 export const WechatOrderCall = ({
   videoSrc,
   callerName,
-  statusText,
   greenSlot,
 }: WechatOrderCallProps) => {
   const resolvedVideoSrc = videoSrc.startsWith('blob:') ? videoSrc : staticFile(videoSrc.replace(/^\//, ''));
@@ -38,8 +36,6 @@ export const WechatOrderCall = ({
       {greenSlot ? (
         <div style={{position: 'absolute', top: 90, right: 26, width: 208, height: 330, background: '#00FF00'}} />
       ) : null}
-
-      <div style={{position: 'absolute', bottom: 222, left: 0, right: 0, textAlign: 'center', color: '#fff', fontSize: 25, fontWeight: 500, textShadow: '0 1px 5px rgba(0,0,0,.72)'}}>{statusText}</div>
 
       <div style={{position: 'absolute', bottom: 72, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 38}}>
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, color: '#fff', fontSize: 17}}><div style={{...controlStyle, background: 'rgba(40,40,40,.72)'}}><Mic size={31} /></div><span>静音</span></div>
