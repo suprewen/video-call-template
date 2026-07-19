@@ -70,7 +70,7 @@ export const App = () => {
 
       <section className="workspace">
         <div className="preview-wrap">
-          <Player component={VideoCallTemplate} inputProps={inputProps} durationInFrames={durationInFrames} compositionWidth={720} compositionHeight={1280} fps={30} controls={false} style={{width: '100%', aspectRatio: '9 / 16'}} />
+          <Player component={VideoCallTemplate} inputProps={inputProps} durationInFrames={durationInFrames} compositionWidth={720} compositionHeight={1280} fps={30} controls style={{width: '100%', aspectRatio: '9 / 16'}} />
         </div>
         <aside className="panel">
           <div className="panel-head"><span>上传并导出</span></div>
