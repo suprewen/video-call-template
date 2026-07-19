@@ -4,38 +4,58 @@ export type CallOverlayOptions = {
   controlsScale: number;
 };
 
+const micIcon = (x: number, y: number) => `
+  <rect x="${x - 9}" y="${y - 19}" width="18" height="29" rx="9" fill="none" />
+  <path d="M${x - 16} ${y + 1}a16 16 0 0 0 32 0M${x} ${y + 19}v10M${x - 11} ${y + 29}h22" />`;
+
 const speakerIcon = (x: number, y: number) => `
-  <path d="M${x - 23} ${y - 10}h11l13-12v44l-13-12h-11z" fill="none" />
-  <path d="M${x + 4} ${y - 13}c8 7 8 19 0 26M${x + 13} ${y - 21}c14 12 14 30 0 42" />`;
+  <path d="M${x - 22} ${y - 10}h11l14-13v46l-14-13h-11z" fill="#111" stroke="none" />
+  <path d="M${x + 5} ${y - 13}c8 7 8 19 0 26M${x + 14} ${y - 21}c14 12 14 30 0 42" />`;
+
+const cameraIcon = (x: number, y: number) => `
+  <rect x="${x - 25}" y="${y - 16}" width="36" height="32" rx="5" fill="#111" stroke="none" />
+  <path d="M${x + 12} ${y - 9}l18-11v40l-18-11z" fill="#111" stroke="none" />`;
+
+const textureIcon = (x: number, y: number) => `
+  <rect x="${x - 21}" y="${y - 21}" width="42" height="42" rx="4" fill="none" />
+  <path d="M${x - 15} ${y - 9}l9-9m-4 34L${x + 17} ${y - 16}M${x - 18} ${y + 4}l23-23M${x - 6} ${y + 18}l24-24M${x + 5} ${y + 18}l13-13" />`;
 
 const hangupIcon = (x: number, y: number) => `
-  <path d="M${x - 31} ${y + 10}c13-26 49-26 62 0M${x - 31} ${y + 10}l10-10M${x + 31} ${y + 10}l-10-10" />`;
+  <path d="M${x - 30} ${y + 10}c12-25 48-25 60 0M${x - 30} ${y + 10}l10-10M${x + 30} ${y + 10}l-10-10" />`;
 
-const switchCameraIcon = (x: number, y: number) => `
-  <rect x="${x - 27}" y="${y - 19}" width="43" height="38" rx="5" fill="none" />
-  <path d="M${x + 17} ${y - 10}l13-9v38l-13-9z" fill="none" />
-  <path d="M${x - 12} ${y - 3}a13 13 0 0 1 21-8M${x + 10} ${y - 11}v11H${x - 1}M${x + 12} ${y + 3}a13 13 0 0 1-21 8M${x - 10} ${y + 11}V${y}h11" />`;
+const switchIcon = (x: number, y: number) => `
+  <path d="M${x - 20} ${y - 4}a23 23 0 0 1 38-13M${x + 19} ${y - 17}v16H${x + 3}M${x + 20} ${y + 4}a23 23 0 0 1-38 13M${x - 19} ${y + 17}v-16h16" />`;
 
 export const createCallOverlaySvg = ({greenSlot, greenSlotScale, controlsScale}: CallOverlayOptions) => {
   const greenWidth = 320 * greenSlotScale;
   const greenHeight = 510 * greenSlotScale;
   const green = greenSlot ? `<rect x="${720 - greenWidth}" y="0" width="${greenWidth}" height="${greenHeight}" fill="#00FF00" />` : '';
-  const controlScale = controlsScale;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="720" height="1280" viewBox="0 0 720 1280">
     ${green}
-    <g transform="translate(360 960) scale(${controlScale}) translate(-360 -960)" font-family="Arial, PingFang SC, sans-serif" fill="#fff" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="126" cy="830" r="64" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.82)" stroke-width="3" />
-      <g>${speakerIcon(126, 830)}</g>
-      <text x="126" y="933" fill="#fff" stroke="none" font-size="22" font-weight="500" text-anchor="middle" dominant-baseline="middle">切到语音通话</text>
+    <g transform="translate(360 1190) scale(${controlsScale}) translate(-360 -1190)" font-family="Arial, PingFang SC, sans-serif" stroke-linecap="round" stroke-linejoin="round">
+      <g stroke="#111" stroke-width="6">
+        <circle cx="145" cy="970" r="52" fill="#fff" stroke="none" />
+        ${micIcon(145, 970)}
+        <circle cx="360" cy="970" r="52" fill="#fff" stroke="none" />
+        ${speakerIcon(360, 970)}
+        <circle cx="575" cy="970" r="52" fill="#fff" stroke="none" />
+        ${cameraIcon(575, 970)}
+      </g>
+      <g fill="#fff" stroke="none" font-size="16" font-weight="500" text-anchor="middle">
+        <text x="145" y="1052">Mic On</text>
+        <text x="360" y="1052">Speaker On</text>
+        <text x="575" y="1052">Camera On</text>
+      </g>
 
-      <circle cx="360" cy="830" r="66" fill="#e83b50" stroke="none" />
-      <g>${hangupIcon(360, 830)}</g>
-      <text x="360" y="933" fill="#fff" stroke="none" font-size="22" font-weight="500" text-anchor="middle" dominant-baseline="middle">挂断</text>
-
-      <circle cx="594" cy="830" r="64" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.82)" stroke-width="3" />
-      <g>${switchCameraIcon(594, 830)}</g>
-      <text x="594" y="933" fill="#fff" stroke="none" font-size="22" font-weight="500" text-anchor="middle" dominant-baseline="middle">转换摄像头</text>
+      <g stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="145" cy="1145" r="52" fill="rgba(0,0,0,.78)" stroke="none" />
+        ${textureIcon(145, 1145)}
+        <circle cx="360" cy="1145" r="52" fill="#ee4d59" stroke="none" />
+        ${hangupIcon(360, 1145)}
+        <circle cx="575" cy="1145" r="52" fill="rgba(0,0,0,.78)" stroke="none" />
+        ${switchIcon(575, 1145)}
+      </g>
     </g>
   </svg>`;
 };
