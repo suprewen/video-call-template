@@ -106,25 +106,30 @@ const createOverlay = async (): Promise<Uint8Array> => {
 
   // 后期合成时可通过色度键移除这块纯绿区域。
   ctx.fillStyle = '#00FF00';
-  ctx.fillRect(486, 90, 208, 330);
+  ctx.fillRect(470, 78, 250, 395);
 
   const controls: Array<{x: number; label: string; icon: CanvasIcon; color: string}> = [
-    {x: 164, label: '静音', icon: 'microphone', color: 'rgba(34,34,34,.72)'},
-    {x: 290, label: '挂断', icon: 'hangup', color: '#ef4444'},
-    {x: 416, label: '摄像头', icon: 'camera', color: 'rgba(34,34,34,.72)'},
-    {x: 542, label: '切换', icon: 'switch', color: 'rgba(34,34,34,.72)'},
+    {x: 198, label: '静音', icon: 'microphone', color: 'rgba(34,34,34,.72)'},
+    {x: 310, label: '挂断', icon: 'hangup', color: '#ef4444'},
+    {x: 422, label: '摄像头', icon: 'camera', color: 'rgba(34,34,34,.72)'},
+    {x: 534, label: '切换', icon: 'switch', color: 'rgba(34,34,34,.72)'},
   ];
   for (const control of controls) {
     ctx.beginPath();
-    ctx.arc(control.x, 1140, 36, 0, Math.PI * 2);
+    ctx.arc(control.x, 1134, 42, 0, Math.PI * 2);
     ctx.fillStyle = control.color;
     ctx.fill();
-    drawIcon(ctx, control.icon, control.x, 1140);
+    ctx.save();
+    ctx.translate(control.x, 1134);
+    ctx.scale(1.15, 1.15);
+    ctx.translate(-control.x, -1134);
+    drawIcon(ctx, control.icon, control.x, 1134);
+    ctx.restore();
     ctx.fillStyle = '#fff';
     ctx.font = '500 17px Arial, "PingFang SC", sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(control.label, control.x, 1210);
+    ctx.fillText(control.label, control.x, 1214);
   }
 
   const blob = await new Promise<Blob>((resolve, reject) => canvas.toBlob((value) => value ? resolve(value) : reject(new Error('无法生成叠层图片')), 'image/png'));

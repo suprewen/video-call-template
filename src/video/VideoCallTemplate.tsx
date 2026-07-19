@@ -7,9 +7,9 @@ export type VideoCallTemplateProps = {
 };
 
 const controlStyle = {
-  width: 72,
-  height: 72,
-  borderRadius: 36,
+  width: 84,
+  height: 84,
+  borderRadius: 42,
   display: 'grid',
   placeItems: 'center',
   color: '#fff',
@@ -29,14 +29,14 @@ export const VideoCallTemplate = ({
       <div style={{position: 'absolute', top: 42, right: 34, color: '#fff', textShadow: '0 1px 5px rgba(0,0,0,.65)'}}><MoreHorizontal size={29} /></div>
 
       {greenSlot ? (
-        <div style={{position: 'absolute', top: 90, right: 26, width: 208, height: 330, background: '#00FF00'}} />
+        <div style={{position: 'absolute', top: 78, right: 20, width: 250, height: 395, background: '#00FF00'}} />
       ) : null}
 
-      <div style={{position: 'absolute', bottom: 72, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 38}}>
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, color: '#fff', fontSize: 17}}><div style={{...controlStyle, background: 'rgba(40,40,40,.72)'}}><Mic size={31} /></div><span>静音</span></div>
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, color: '#fff', fontSize: 17}}><div style={{...controlStyle, background: '#ef4444'}}><PhoneOff size={31} /></div><span>挂断</span></div>
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, color: '#fff', fontSize: 17}}><div style={{...controlStyle, background: 'rgba(40,40,40,.72)'}}><VideoIcon size={31} /></div><span>摄像头</span></div>
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, color: '#fff', fontSize: 17}}><div style={{...controlStyle, background: 'rgba(40,40,40,.72)'}}><SwitchCamera size={30} /></div><span>切换</span></div>
+      <div style={{position: 'absolute', bottom: 58, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 24}}>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, color: '#fff', fontSize: 17}}><div style={{...controlStyle, background: 'rgba(40,40,40,.72)'}}><Mic size={35} /></div><span>静音</span></div>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, color: '#fff', fontSize: 17}}><div style={{...controlStyle, background: '#ef4444'}}><PhoneOff size={35} /></div><span>挂断</span></div>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, color: '#fff', fontSize: 17}}><div style={{...controlStyle, background: 'rgba(40,40,40,.72)'}}><VideoIcon size={35} /></div><span>摄像头</span></div>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, color: '#fff', fontSize: 17}}><div style={{...controlStyle, background: 'rgba(40,40,40,.72)'}}><SwitchCamera size={34} /></div><span>切换</span></div>
       </div>
     </AbsoluteFill>
   );
