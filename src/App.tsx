@@ -2,7 +2,7 @@ import {useEffect, useMemo, useState} from 'react';
 import {Player} from '@remotion/player';
 import {Download, FileVideo, LoaderCircle, Sparkles, Upload} from 'lucide-react';
 import {exportOrderVideo} from './browserExport';
-import {WechatOrderCall} from './video/WechatOrderCall';
+import {VideoCallTemplate} from './video/VideoCallTemplate';
 
 const fallbackVideo = '/demo.mp4';
 
@@ -46,7 +46,7 @@ export const App = () => {
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `${sourceFile.name.replace(/\.[^.]+$/, '')}-直播点单.mp4`;
+      link.download = `${sourceFile.name.replace(/\.[^.]+$/, '')}-视频通话.mp4`;
       link.click();
       window.setTimeout(() => URL.revokeObjectURL(url), 1_000);
       setExportStatus('导出完成，MP4 已开始下载。');
@@ -65,12 +65,12 @@ export const App = () => {
       <section className="intro">
         <p className="eyebrow"><Sparkles size={15} /> 视频通话素材</p>
         <h1>视频通话模板生成器</h1>
-        <p className="lede">保留原始人物视频，只叠加视频通话界面与可抠像的商品直播位。视频始终留在你的设备上。</p>
+        <p className="lede">保留原始人物视频，叠加视频通话风格界面与右上角绿幕区域。视频始终留在你的设备上。</p>
       </section>
 
       <section className="workspace">
         <div className="preview-wrap">
-          <Player component={WechatOrderCall} inputProps={inputProps} durationInFrames={durationInFrames} compositionWidth={720} compositionHeight={1280} fps={30} controls style={{width: '100%', aspectRatio: '9 / 16'}} />
+          <Player component={VideoCallTemplate} inputProps={inputProps} durationInFrames={durationInFrames} compositionWidth={720} compositionHeight={1280} fps={30} controls style={{width: '100%', aspectRatio: '9 / 16'}} />
         </div>
         <aside className="panel">
           <div className="panel-head"><span>上传并导出</span></div>

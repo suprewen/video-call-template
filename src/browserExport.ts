@@ -30,7 +30,7 @@ const createOverlay = async (callerName: string): Promise<Uint8Array> => {
   ctx.font = '700 28px Arial, sans-serif';
   ctx.fillText('···', 688, 62);
 
-  // 直播软件通过色度键移除这块纯绿区域。
+  // 后期合成时可通过色度键移除这块纯绿区域。
   ctx.fillStyle = '#00FF00';
   ctx.fillRect(486, 90, 208, 330);
 
@@ -92,12 +92,12 @@ export const exportOrderVideo = async ({
     '-filter_complex', '[0:v]scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280[base];[base][1:v]overlay=0:0:format=auto[outv]',
     '-map', '[outv]', '-map', '0:a?',
     '-c:v', 'libx264', '-preset', 'ultrafast', '-crf', '20',
-    '-c:a', 'aac', '-b:a', '128k', '-shortest', 'order-call.mp4',
+    '-c:a', 'aac', '-b:a', '128k', '-shortest', 'video-call.mp4',
   ]);
-  const output = await ffmpeg.readFile('order-call.mp4');
+  const output = await ffmpeg.readFile('video-call.mp4');
   await ffmpeg.deleteFile('input-video');
   await ffmpeg.deleteFile('call-overlay.png');
-  await ffmpeg.deleteFile('order-call.mp4');
+  await ffmpeg.deleteFile('video-call.mp4');
   onProgress(100);
   onStatus('导出完成，正在下载…');
   return new Blob([output], {type: 'video/mp4'});

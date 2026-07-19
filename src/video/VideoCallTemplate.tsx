@@ -1,7 +1,7 @@
 import {AbsoluteFill, staticFile, Video} from 'remotion';
 import {Mic, MoreHorizontal, PhoneOff, SwitchCamera, Video as VideoIcon, Volume2} from 'lucide-react';
 
-export type WechatOrderCallProps = {
+export type VideoCallTemplateProps = {
   videoSrc: string;
   callerName: string;
   greenSlot: boolean;
@@ -16,11 +16,11 @@ const controlStyle = {
   color: '#fff',
 } as const;
 
-export const WechatOrderCall = ({
+export const VideoCallTemplate = ({
   videoSrc,
   callerName,
   greenSlot,
-}: WechatOrderCallProps) => {
+}: VideoCallTemplateProps) => {
   const resolvedVideoSrc = videoSrc.startsWith('blob:') ? videoSrc : staticFile(videoSrc.replace(/^\//, ''));
 
   return (

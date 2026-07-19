@@ -9,7 +9,7 @@ if (!inputArg) {
 }
 
 const input = resolve(inputArg);
-const output = resolve(outputArg ?? `out/${basename(input).replace(/\.[^.]+$/, '')}-wechat-order.mp4`);
+const output = resolve(outputArg ?? `out/${basename(input).replace(/\.[^.]+$/, '')}-video-call.mp4`);
 const callerName = nameArg ?? '正在视频通话';
 if (!existsSync(input)) {
   console.error(`找不到输入视频：${input}`);
@@ -31,5 +31,5 @@ if (probe.status !== 0) {
 }
 const frames = Math.max(1, Math.ceil(Number(probe.stdout.trim()) * 30));
 const props = JSON.stringify({videoSrc: '/render-input.mp4', callerName, greenSlot: true});
-const result = spawnSync('npx', ['remotion', 'render', 'src/remotion.ts', 'WechatOrderCall', output, `--frames=0-${frames - 1}`, '--codec=h264', `--props=${props}`], {stdio: 'inherit'});
+const result = spawnSync('npx', ['remotion', 'render', 'src/remotion.ts', 'VideoCallTemplate', output, `--frames=0-${frames - 1}`, '--codec=h264', `--props=${props}`], {stdio: 'inherit'});
 process.exit(result.status ?? 1);

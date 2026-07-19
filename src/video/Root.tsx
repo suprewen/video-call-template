@@ -1,7 +1,7 @@
 import {Composition} from 'remotion';
-import {WechatOrderCall, type WechatOrderCallProps} from './WechatOrderCall';
+import {VideoCallTemplate, type VideoCallTemplateProps} from './VideoCallTemplate';
 
-const defaultProps: WechatOrderCallProps = {
+const defaultProps: VideoCallTemplateProps = {
   videoSrc: '/render-input.mp4',
   callerName: '正在视频通话',
   greenSlot: true,
@@ -10,8 +10,8 @@ const defaultProps: WechatOrderCallProps = {
 export const RemotionRoot = () => {
   return (
     <Composition
-      id="WechatOrderCall"
-      component={WechatOrderCall}
+      id="VideoCallTemplate"
+      component={VideoCallTemplate}
       durationInFrames={18000}
       fps={30}
       width={720}
