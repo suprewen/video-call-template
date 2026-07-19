@@ -80,7 +80,7 @@ const drawIcon = (ctx: CanvasRenderingContext2D, icon: CanvasIcon, x: number, y:
   ctx.fill();
 };
 
-const createOverlay = async (): Promise<Uint8Array> => {
+const createOverlay = async ({greenSlotScale, controlsScale}: {greenSlotScale: number; controlsScale: number}): Promise<Uint8Array> => {
   const canvas = document.createElement('canvas');
   canvas.width = 720;
   canvas.height = 1280;
@@ -98,16 +98,16 @@ const createOverlay = async (): Promise<Uint8Array> => {
   ctx.fillStyle = bottomShade;
   ctx.fillRect(0, 940, 720, 340);
 
-  ctx.fillStyle = '#fff';
-  ctx.textAlign = 'right';
-  ctx.textBaseline = 'middle';
-  ctx.font = '700 25px Arial, sans-serif';
-  ctx.fillText('•••', 688, 56);
-
   // 后期合成时可通过色度键移除这块纯绿区域。
+  const greenWidth = 250 * greenSlotScale;
+  const greenHeight = 395 * greenSlotScale;
   ctx.fillStyle = '#00FF00';
-  ctx.fillRect(470, 78, 250, 395);
+  ctx.fillRect(720 - 20 - greenWidth, 78, greenWidth, greenHeight);
 
+  ctx.save();
+  ctx.translate(360, 1260);
+  ctx.scale(controlsScale, controlsScale);
+  ctx.translate(-360, -1260);
   const controls: Array<{x: number; label: string; icon: CanvasIcon; color: string}> = [
     {x: 198, label: '静音', icon: 'microphone', color: 'rgba(34,34,34,.72)'},
     {x: 310, label: '挂断', icon: 'hangup', color: '#ef4444'},
@@ -131,6 +131,7 @@ const createOverlay = async (): Promise<Uint8Array> => {
     ctx.textBaseline = 'middle';
     ctx.fillText(control.label, control.x, 1214);
   }
+  ctx.restore();
 
   const blob = await new Promise<Blob>((resolve, reject) => canvas.toBlob((value) => value ? resolve(value) : reject(new Error('无法生成叠层图片')), 'image/png'));
   return new Uint8Array(await blob.arrayBuffer());
@@ -149,10 +150,14 @@ const ensureLoaded = async (onStatus: (status: string) => void) => {
 
 export const exportVideoCallTemplate = async ({
   file,
+  greenSlotScale,
+  controlsScale,
   onProgress,
   onStatus,
 }: {
   file: File;
+  greenSlotScale: number;
+  controlsScale: number;
   onProgress: (value: number) => void;
   onStatus: (status: string) => void;
 }): Promise<Blob> => {
@@ -160,7 +165,7 @@ export const exportVideoCallTemplate = async ({
   onStatus('正在准备素材…');
   onProgress(0);
   await ffmpeg.writeFile('input-video', await fetchFile(file));
-  await ffmpeg.writeFile('call-overlay.png', await createOverlay());
+  await ffmpeg.writeFile('call-overlay.png', await createOverlay({greenSlotScale, controlsScale}));
 
   const progressHandler = ({progress}: {progress: number}) => onProgress(Math.min(99, Math.max(1, Math.round(progress * 100))));
   ffmpeg.on('progress', progressHandler);

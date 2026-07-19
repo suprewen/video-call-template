@@ -4,6 +4,8 @@ import {VideoCallTemplate, type VideoCallTemplateProps} from './VideoCallTemplat
 const defaultProps: VideoCallTemplateProps = {
   videoSrc: '/render-input.mp4',
   greenSlot: true,
+  greenSlotScale: 1,
+  controlsScale: 1,
 };
 
 export const RemotionRoot = () => {
