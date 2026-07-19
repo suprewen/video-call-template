@@ -11,6 +11,8 @@
     "render": "node scripts/render.mjs"
   },
   "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
     "@remotion/cli": "^4.0.410",
     "@remotion/media-utils": "^4.0.410",
     "@remotion/player": "^4.0.410",
